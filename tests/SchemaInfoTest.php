@@ -3,111 +3,110 @@
 namespace Erayd\JsonSchemaInfo\Tests;
 
 use Erayd\JsonSchemaInfo\SchemaInfo;
+use Erayd\JsonSchemaInfo\RuleInfo;
+use JsonSchema\Validator;
+use JsonSchema\Constraints\Constraint;
 
 class SchemaInfoTest extends \PHPUnit\Framework\TestCase
 {
-    public function dataSchemaInfoFromURI()
+    public function dataValidateStandard()
     {
         return array(
-            // various valid URI
-            array('http://json-schema.org/draft-03/schema', SchemaInfo::SPEC_DRAFT_03),
-            array('http://json-schema.org/draft-03/schema#', SchemaInfo::SPEC_DRAFT_03),
-            array('http://json-schema.org/draft-03/schema#fragment', SchemaInfo::SPEC_DRAFT_03),
-            array('https://json-schema.org/draft-04/schema', SchemaInfo::SPEC_DRAFT_04),
-
-            array('https://json-schema.org/draft-05/schema#', 0, false), // draft-05 doesn't have a meta-schema
-            array('http://example.com/schema', 0, false), // invalid URI
-
-            array(5, 0, false), // invalid type for URI
-            array('', 0, false), // empty string for URI
+            array('http://json-schema.org/draft-03/schema#'),
         );
     }
 
-    /** @dataProvider dataSchemaInfoFromURI **/
-    public function testGetSpecForURI($uri, $spec, $isValid = true)
+    public function dataSpecList()
     {
-        if (!$isValid) {
-            $this->setExpectedException('\InvalidArgumentException');
-        }
-
-        $uriSchemaInfo = SchemaInfo::getSpecForURI($uri);
-
-        $this->assertEquals($spec, $uriSchemaInfo);
-    }
-
-    public function dataGetOption()
-    {
-        // all tests here are against draft-04
         return array(
-            // valid tests
-            array('typeString', true),  // camelCase option exists, true by default
-            array('TYPE_STRING', true), // CONSTANT_CASE option exists, true by default
-            array('typeInteger', true), // False by default, true for draft-04
-
-            // invalid tests
-            array('fakeOptionName', true, false),   // camelCase option doesn't exist
-            array('FAKE_OPTION_NAME', true, false), // OPTION_CASE option doesn't exist
+            array(SchemaInfo::SPEC_DRAFT_03, 'http://json-schema.org/draft-03/schema#'),
+            array(SchemaInfo::SPEC_DRAFT_04, 'http://json-schema.org/draft-04/schema#'),
+            array(SchemaInfo::SPEC_DRAFT_06, 'http://json-schema.org/draft-06/schema#'),
         );
     }
 
-    /** @dataProvider dataGetOption **/
-    public function testGetOption($name, $defaultValue, $isValid = true)
+    /** @dataProvider dataValidateStandard */
+    // ensure the standard rulesets are valid
+    public function testValidateStandard($uri)
     {
-        $s = new SchemaInfo(SchemaInfo::SPEC_DRAFT_04_URI);
+        $info = new SchemaInfo($uri);
 
-        if (!$isValid) {
-            $this->setExpectedException('\InvalidArgumentException');
-        }
+        $schema = json_decode(file_get_contents(__DIR__ . '/../rules/schema.json'));
 
-        $this->assertEquals($defaultValue, $s->$name);
+        $v = new Validator();
+
+        // check spec rules
+        $ruleset = $info->getSpecInfo();
+        $v->validate($ruleset, $schema, Constraint::CHECK_MODE_EXCEPTIONS);
+
+        // check base rules
+        $ruleset = $info->getBaseInfo();
+        $v->validate($ruleset, $schema, Constraint::CHECK_MODE_EXCEPTIONS);
     }
 
-    public function dataCheckConstantsAreDefined()
+    /** @dataProvider dataSpecList */
+    // ensure that getSchema() works
+    public function testGetSchema($spec)
     {
-        return array(
-            array(SchemaInfo::SPEC_PERMISSIVE),
-            array(SchemaInfo::SPEC_DRAFT_03),
-            array(SchemaInfo::SPEC_DRAFT_04),
-            array(SchemaInfo::SPEC_DRAFT_05)
-        );
+        $info = new SchemaInfo($spec);
+        $infoSpecSchema = $info->getSchema();
+        $specSchema = json_decode(file_get_contents(__DIR__ . "/../dist/$spec/schema.json"));
+
+        $this->assertEquals($specSchema, $infoSpecSchema);
     }
 
-    /** @dataProvider dataCheckConstantsAreDefined **/
-    public function testCheckConstantsAreDefined($specVersion)
+    /** @dataProvider dataSpecList */
+    // ensure that getURI() works
+    public function testGetURI($spec, $uri)
     {
-        $s = new SchemaInfo($specVersion);
-        $r = new \ReflectionObject($s);
-        $m = $r->getProperty('matrix');
-        $m->setAccessible(true);
-        foreach ($m->getValue($s) as $option => $value) {
-            $this->assertTrue(
-                defined('\Erayd\JsonSchemaInfo\SchemaInfo::' . $option),
-                $option . ' is not a valid option constant'
-            );
-        }
+        $info = new SchemaInfo($spec);
+
+        $this->assertEquals($uri, $info->getURI());
     }
 
-    public function testGetOptionDraft03()
+    /** @dataProvider dataSpecList */
+    public function testGetSpecName($spec, $uri)
     {
-        $s = new SchemaInfo(SchemaInfo::SPEC_DRAFT_03);
-        $this->assertTrue($s->typeString);
+        $this->assertEquals($spec, SchemaInfo::getSpecName($uri));
+
+        $this->setExpectedException('\InvalidArgumentException');
+        SchemaInfo::getSpecName(array());
     }
 
-    public function testGetOptionDraft05()
-    {
-        $s = new SchemaInfo(SchemaInfo::SPEC_DRAFT_05);
-        $this->assertTrue($s->typeString);
-    }
-
-    public function testUnknownSchemaSpec()
+    // test type exception for spec arg
+    public function testSpecArgTypeException()
     {
         $this->setExpectedException('\InvalidArgumentException');
-        new SchemaInfo(SchemaInfo::SPEC_NONE);
+        $info = new SchemaInfo(array());
     }
 
-    public function testUnknownSchemaSpecURI()
+    // test invalid spec exception for spec arg
+    public function testSpecArgInvalidSpecException()
     {
         $this->setExpectedException('\InvalidArgumentException');
-        new SchemaInfo('http://example.com/fake/schema');
+        $info = new SchemaInfo('invalid-spec');
+    }
+
+    // test rule info
+    public function testRuleInfo()
+    {
+        $info = new SchemaInfo(SchemaInfo::SPEC_DRAFT_03);
+
+        // invalid rule vocabulary & rule references should be null
+        $this->assertNull($info->invalidVocabulary);
+        $this->assertNull($info->core->invalidKeyword);
+        $this->assertNull($info->core->{'$id'});
+        $this->assertNull($info->core->id->invalidRule);
+            
+        // valid rule references should be a RuleInfo object
+        $this->assertInstanceOf('\Erayd\JsonSchemaInfo\RuleInfo', $info->core->id);
+
+        // all rules should provide info rules, even if not defined
+        $this->assertFalse($info->core->id->{'as-schema'});
+
+        // check info rules are valid
+        $this->assertFalse($info->validation->properties->{'as-schema'});
+        $this->assertTrue($info->validation->properties->{'as-container'});
+        $this->assertEquals(array('boolean'), $info->validation->exclusiveMinimum->{'allow-types'});
     }
 }

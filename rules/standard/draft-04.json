@@ -1,0 +1,38 @@
+{
+    "vocabularies": {
+        "type": ["null", "boolean", "string", "number", "integer", "object", "array"],
+        "format": ["date-time", "uri", "email", "ipv4", "ipv6", "hostname"],
+        "core": ["$ref", "$schema", "id"],
+        "metadata": ["definitions", "title", "description", "default"],
+        "validation": [
+            "multipleOf", "minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum",
+            "minLength", "maxLength", "pattern", "items", "additionalItems", "minItems",
+            "maxItems", "uniqueItems", "properties", "patternProperties", "additionalProperties",
+            "minProperties", "maxProperties", "required", "dependencies", "type", "enum",
+            "allOf", "anyOf", "oneOf", "not", "format"
+        ],
+        "implementation": ["selfDescriptiveMetaSchema"]
+    },
+    "metadata": {
+        "validation": {
+            "exclusiveMinimum": {
+                "allow-types": ["boolean"]
+            },
+            "exclusiveMaximum": {
+                "allow-types": ["boolean"]
+            },
+            "items": {
+                "allow-types": ["object", "array"]
+            },
+            "additionalItems": {
+                "allow-types": ["boolean", "object"]
+            },
+            "not": {
+                "allow-types": ["object"]
+            },
+            "required": {
+                "allow-types": ["array"]
+            }
+        }
+    }
+}

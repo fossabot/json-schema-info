@@ -1,0 +1,34 @@
+{
+    "vocabularies": {
+        "type": ["null", "boolean", "string", "number", "integer", "object", "array", "any"],
+        "format": [
+            "date-time", "date", "time", "utc-millisec", "regex", "color", "style",
+            "phone", "uri", "email", "ip-address", "ipv6", "host-name"
+        ],
+        "core": ["$ref", "$schema", "id"],
+        "metadata": ["title", "description", "default"],
+        "validation": [
+            "disallow", "extends", "divisibleBy", "minimum", "maximum", "exclusiveMinimum",
+            "exclusiveMaximum", "minLength", "maxLength", "pattern", "items", "additionalItems",
+            "minItems", "maxItems", "uniqueItems", "properties", "patternProperties",
+            "additionalProperties", "required", "dependencies", "type", "enum", "format"
+        ],
+        "implementation": ["allowUndefinedTypes", "allowSimpleDependencies", "formatSchemaURI", "allowSchemaInUnionType"]
+    },
+    "metadata": {
+        "validation": {
+            "exclusiveMinimum": {
+                "allow-types": ["boolean"]
+            },
+            "exclusiveMaximum": {
+                "allow-types": ["boolean"]
+            },
+            "items": {
+                "allow-types": ["object", "array"]
+            },
+            "required": {
+                "allow-types": ["boolean"]
+            }
+        }
+    }
+}

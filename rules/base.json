@@ -1,0 +1,256 @@
+{
+    "metadata": {
+        "format": {
+            "date-time": {
+                "for-types": ["string"]
+            },
+            "date": {
+                "for-types": ["string"]
+            },
+            "time": {
+                "for-types": ["string"]
+            },
+            "utc-millisec": {
+                "for-types": ["number", "integer"]
+            },
+            "regex": {
+                "for-types": ["string"]
+            },
+            "color": {
+                "for-types": ["string"]
+            },
+            "style": {
+                "for-types": ["string"]
+            },
+            "phone": {
+                "for-types": ["string"]
+            },
+            "email": {
+                "for-types": ["string"]
+            },
+            "uri": {
+                "for-types": ["string"]
+            },
+            "uriref": {
+                "for-types": ["string"],
+                "synonym": ["uri-reference"]
+            },
+            "uri-reference": {
+                "for-types": ["string"],
+                "synonym": ["uriref"]
+            },
+            "uri-template": {
+                "for-types": ["string"]
+            },
+            "json-pointer": {
+                "for-types": ["string"]
+            },
+            "ip-address": {
+                "for-types": ["string"],
+                "synonym": ["ipv4"]
+            },
+            "ipv4": {
+                "for-types": ["string"],
+                "synonym": ["ip-address"]
+            },
+            "host-name": {
+                "for-types": ["string"],
+                "synonym": ["hostname"]},
+            "hostname": {
+                "for-types": ["string"],
+                "synonym": ["host-name"]}
+        },
+        "core": {
+            "$ref": {
+                "allow-types": ["string"]
+            },
+            "$schema": {
+                "allow-types": ["string"]
+            },
+            "$id": {
+                "allow-types": ["string"],
+                "synonym": ["id"]
+            },
+            "id": {
+                "allow-types": ["string"],
+                "synonym": ["$id"]
+            }
+        },
+        "metadata": {
+            "definitions": {
+                "allow-types": ["object"],
+                "as-container": true
+            },
+            "title": {
+                "allow-types": ["string"]
+            },
+            "description": {
+                "allow-types": ["string"]
+            },
+            "default": {},
+            "examples": {
+                "allow-types": ["array"]
+            }
+        },
+        "validation": {
+            "disallow": {
+                "allow-types": ["string", "array"]
+            },
+            "extends": {
+                "allow-types": ["object", "array"],
+                "as-schema": true
+            },
+            "divisibleBy": {
+                "allow-types": ["number", "integer"],
+                "for-types": ["number", "integer"],
+                "synonym": ["multipleOf"]
+            },
+            "multipleOf": {
+                "allow-types": ["number", "integer"],
+                "for-types": ["number", "integer"],
+                "synonym": ["multipleOf"]
+            },
+            "minimum": {
+                "allow-types": ["number", "integer"],
+                "for-types": ["number", "integer"]
+            },
+            "maximum": {
+                "allow-types": ["number", "integer"],
+                "for-types": ["number", "integer"]
+            },
+            "exclusiveMinimum": {
+                "allow-types": ["boolean", "number", "integer"],
+                "for-types": ["number", "integer"]
+            },
+            "exclusiveMaximum": {
+                "allow-types": ["boolean", "number", "integer"],
+                "for-types": ["number", "integer"]
+            },
+            "minLength": {
+                "allow-types": ["integer"],
+                "for-types": ["string"]
+            },
+            "maxLength": {
+                "allow-types": ["integer"],
+                "for-types": ["string"]
+            },
+            "pattern": {
+                "allow-types": ["string"],
+                "for-types": ["string"]
+            },
+            "items": {
+                "allow-types": ["boolean", "object", "array"],
+                "for-types": ["array"],
+                "as-schema": true
+            },
+            "additionalItems": {
+                "allow-types": ["boolean", "object"],
+                "for-types": ["array"],
+                "as-schema": true
+            },
+            "minItems": {
+                "allow-types": ["integer"],
+                "for-types": ["array"]
+            },
+            "maxItems": {
+                "allow-types": ["integer"],
+                "for-types": ["array"]
+            },
+            "uniqueItems": {
+                "allow-types": ["boolean"],
+                "for-types": ["array"]
+            },
+            "contains": {
+                "allow-types": ["boolean", "object"],
+                "for-types": ["array"],
+                "as-schema": true
+            },
+            "properties": {
+                "allow-types": ["object"],
+                "for-types": ["object"],
+                "as-container": true
+            },
+            "patternProperties": {
+                "allow-types": ["object"],
+                "for-types": ["object"],
+                "as-container": true
+            },
+            "additionalProperties": {
+                "allow-types": ["boolean", "object"],
+                "for-types": ["object"],
+                "as-schema": true
+            },
+            "minProperties": {
+                "allow-types": ["integer"],
+                "for-types": ["object"]
+            },
+            "maxProperties": {
+                "allow-types": ["integer"],
+                "for-types": ["object"]
+            },
+            "required": {
+                "allow-types": ["boolean", "array"],
+                "for-types": ["object"]
+            },
+            "dependencies": {
+                "allow-types": ["object"],
+                "for-types": ["object"],
+                "as-container": true
+            },
+            "propertyNames": {
+                "allow-types": ["boolean", "object"],
+                "for-types": ["object"],
+                "as-schema": true
+            },
+            "type": {
+                "allow-types": ["string", "array"]
+            },
+            "const": {},
+            "enum": {
+                "allow-types": ["array"]
+            },
+            "allOf": {
+                "allow-types": ["array"],
+                "as-schema": true
+            },
+            "anyOf": {
+                "allow-types": ["array"],
+                "as-schema": true
+            },
+            "oneOf": {
+                "allow-types": ["array"],
+                "as-schema": true
+            },
+            "not": {
+                "allow-types": ["boolean", "object"],
+                "as-schema": true
+            },
+            "format": {
+                "allow-types": ["string"]
+            }
+        },
+        "implementation": {
+            "allowUndefinedTypes": {
+                "comment": "whether other, non-spec primitive types are allowed"
+            },
+            "selfDescriptiveMetaSchema": {
+                "comment": "whether the meta-schema must be valid against itself"
+            },
+            "allowSimpleDependencies": {
+                "comment": "whether 'dependencies' may directly list a string property, of an array of such"
+            },
+            "formatSchemaURI": {
+                "comment": "whether custom formats may be expressed as a schema URI, such schema being suitable for validation of the format"
+            },
+            "allowSchemaInUnionType": {
+                "comment": "whether a schema may be used as an item within a 'type' array"
+            },
+            "allowBooleanSchema": {
+                "comment": "whether a schema may be a boolean"
+            },
+            "allowIntegerWithFractionalPart": {
+                "comment": "whether an integer may be a float with a zero fractional part"
+            }
+        }
+    }
+}
