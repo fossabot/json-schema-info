@@ -43,8 +43,6 @@ class RuleInfo
      */
     public function __get($rule)
     {
-        $instance = $this;
-
         $value = $this->getTarget($this->spec->getSpecInfo(), array('metadata', $this->vocabulary, $this->keyword, $rule));
         if (!is_null($value)) {
             return $this->$rule = $value;
