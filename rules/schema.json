@@ -38,6 +38,11 @@
                     "description": "treat the value for this keyword as containing as-schema values",
                     "type": "boolean",
                     "default": false
+                },
+                "for-undefined": {
+                    "description": "whether this keyword should still be processed if the instance is undefined",
+                    "type": "boolean",
+                    "default": "false"
                 }
             },
             "additionalProperties": false

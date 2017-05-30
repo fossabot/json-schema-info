@@ -22,7 +22,8 @@
                 "allow-types": ["number", "integer"]
             },
             "required": {
-                "allow-types": ["array"]
+                "allow-types": ["array"],
+                "for-undefined": false
             }
         }
     }

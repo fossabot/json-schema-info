@@ -87,7 +87,9 @@
             "description": {
                 "allow-types": ["string"]
             },
-            "default": {},
+            "default": {
+                "for-undefined": true
+            },
             "examples": {
                 "allow-types": ["array"]
             }
@@ -190,7 +192,8 @@
             },
             "required": {
                 "allow-types": ["boolean", "array"],
-                "for-types": ["object"]
+                "for-types": ["object"],
+                "for-undefined": true
             },
             "dependencies": {
                 "allow-types": ["object"],

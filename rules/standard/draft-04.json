@@ -31,7 +31,8 @@
                 "allow-types": ["object"]
             },
             "required": {
-                "allow-types": ["array"]
+                "allow-types": ["array"],
+                "for-undefined": false
             }
         }
     }
