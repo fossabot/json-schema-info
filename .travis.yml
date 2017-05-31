@@ -20,6 +20,7 @@ matrix:
         - php: 7.1
         - php: 'nightly'
         - php: hhvm
+          dist: trusty
 
 before_script:
     - if [[ "$WITH_COVERAGE" != "true" ]]; then phpenv config-rm xdebug.ini || true; fi
