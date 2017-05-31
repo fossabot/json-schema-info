@@ -28,6 +28,9 @@
             },
             "required": {
                 "allow-types": ["boolean"]
+            },
+            "type": {
+                "as-schema": true
             }
         }
     }
