@@ -11,7 +11,7 @@
             "maxProperties", "required", "dependencies", "propertyNames", "type", "const", "enum",
             "allOf", "anyOf", "oneOf", "not", "format"
         ],
-        "implementation": ["allowBooleanSchema", "allowIntegerWithFractionalPart", "exclusiveMinMaxIsNumber"]
+        "implementation": ["allowBooleanSchema", "allowIntegerWithFractionalPart"]
     },
     "metadata": {
         "validation": {
