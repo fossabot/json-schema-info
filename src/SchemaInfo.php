@@ -1,11 +1,11 @@
 <?php
 
-namespace Erayd\JsonSchemaInfo;
+namespace JsonSchemaInfo;
 
 /**
  * Provide info on various json-schema specification standards
  *
- * @package json-schema-info
+ * @package baacode/json-schema-info
  * @license ISC
  * @author Steve Gilberd <steve@erayd.net>
  * @copyright (c) 2017 Erayd LTD

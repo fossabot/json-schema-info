@@ -1,9 +1,9 @@
 <?php
 
-namespace Erayd\JsonSchemaInfo\Tests;
+namespace JsonSchemaInfo\Tests;
 
-use Erayd\JsonSchemaInfo\SchemaInfo;
-use Erayd\JsonSchemaInfo\RuleInfo;
+use JsonSchemaInfo\SchemaInfo;
+use JsonSchemaInfo\RuleInfo;
 use JsonSchema\Validator;
 use JsonSchema\Constraints\Constraint;
 
@@ -99,7 +99,7 @@ class SchemaInfoTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($info->core->id->invalidRule);
             
         // valid rule references should be a RuleInfo object
-        $this->assertInstanceOf('\Erayd\JsonSchemaInfo\RuleInfo', $info->core->id);
+        $this->assertInstanceOf('\JsonSchemaInfo\RuleInfo', $info->core->id);
 
         // all rules should provide info rules, even if not defined
         $this->assertFalse($info->core->id->{'as-schema'});

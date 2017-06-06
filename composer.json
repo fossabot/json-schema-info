@@ -1,8 +1,8 @@
 {
-    "name": "erayd/json-schema-info",
+    "name": "baacode/json-schema-info",
     "description": "Provides information about a JSON schema spec",
     "keywords": ["json", "schema", "json-schema", "spec", "info", "information"],
-    "homepage": "https://github.com/erayd/json-schema-info",
+    "homepage": "https://github.com/baacode/json-schema-info",
     "type": "library",
     "require": {
         "php": "^5.3.0 || ^7.0.0"
@@ -23,12 +23,12 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Erayd\\JsonSchemaInfo\\": "src/"
+            "JsonSchemaInfo\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Erayd\\JsonSchemaInfo\\Tests\\": "tests/Tests"
+            "JsonSchemaInfo\\Tests\\": "tests/Tests"
         }
     },
     "scripts": {

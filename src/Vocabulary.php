@@ -1,11 +1,11 @@
 <?php
 
-namespace Erayd\JsonSchemaInfo;
+namespace JsonSchemaInfo;
 
 /**
  * Vocabulary wrapper to allow accessing as property
  *
- * @package json-schema-info
+ * @package baacode/json-schema-info
  * @license ISC
  * @author Steve Gilberd <steve@erayd.net>
  * @copyright (c) 2017 Erayd LTD
